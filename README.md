@@ -49,8 +49,8 @@ The function returns a list containing:
 
 This allows for more flexible matching - you can check if any code from one word matches any code from another word.
 
-### `levenshtein(VARCHAR, VARCHAR) → BIGINT`
-### `levenshtein(VARCHAR, VARCHAR, BIGINT) → BIGINT`
+### `rapidfuzz_levenshtein(VARCHAR, VARCHAR) → BIGINT`
+### `rapidfuzz_levenshtein(VARCHAR, VARCHAR, BIGINT) → BIGINT`
 
 Computes the Levenshtein distance between two strings. The Levenshtein distance is the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one string into another.
 
@@ -63,7 +63,7 @@ The function has two variants:
 
 Computes the Damerau-Levenshtein distance between two strings. This extends the Levenshtein distance by also allowing transposition of two adjacent characters as a single edit operation, making it more suitable for detecting common typing errors.
 
-Like the Levenshtein function, it has two variants:
+Like the rapidfuzz_levenshtein function, it has two variants:
 - Two-argument version: Returns the exact Damerau-Levenshtein distance
 - Three-argument version: Returns the distance capped at the specified threshold
 
@@ -102,14 +102,14 @@ SELECT double_metaphone('Schmidt'); -- returns ['XMT', 'SMT']
 SELECT double_metaphone('Johnson'); -- returns ['JNSN']
 SELECT double_metaphone('Jackson'); -- returns ['JKSN']
 
--- Levenshtein distance examples
-SELECT levenshtein('kitten', 'sitting'); -- returns 3
-SELECT levenshtein('Saturday', 'Sunday'); -- returns 3
-SELECT levenshtein('hello', 'hello'); -- returns 0
+-- rapidfuzz_levenshtein distance examples
+SELECT rapidfuzz_levenshtein('kitten', 'sitting'); -- returns 3
+SELECT rapidfuzz_levenshtein('Saturday', 'Sunday'); -- returns 3
+SELECT rapidfuzz_levenshtein('hello', 'hello'); -- returns 0
 
--- Levenshtein with max threshold (performance optimization)
-SELECT levenshtein('kitten', 'sitting', 2); -- returns 3 (exceeds threshold)
-SELECT levenshtein('hello', 'helo', 2); -- returns 1 (within threshold)
+-- rapidfuzz_levenshtein with max threshold (performance optimization)
+SELECT rapidfuzz_levenshtein('kitten', 'sitting', 2); -- returns 3 (exceeds threshold)
+SELECT rapidfuzz_levenshtein('hello', 'helo', 2); -- returns 1 (within threshold)
 
 -- Damerau-Levenshtein distance examples
 SELECT damerau_levenshtein('CA', 'AC'); -- returns 1 (transposition)

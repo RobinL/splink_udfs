@@ -196,13 +196,13 @@ static void LoadInternal(DatabaseInstance &instance) {
 	                                ScalarFunction("double_metaphone", {LogicalType::VARCHAR},
 	                                               LogicalType::LIST(LogicalType::VARCHAR), DoubleMetaphoneScalarList));
 
-	ScalarFunctionSet levenshtein_set("levenshtein");
-	levenshtein_set.AddFunction(
-	    ScalarFunction({LogicalType::VARCHAR, LogicalType::VARCHAR}, LogicalType::BIGINT, LevenshteinScalar));
-	levenshtein_set.AddFunction(ScalarFunction({LogicalType::VARCHAR, LogicalType::VARCHAR, LogicalType::BIGINT},
-	                                           LogicalType::BIGINT, LevenshteinScalarWithThreshold));
+        ScalarFunctionSet rapidfuzz_levenshtein_set("rapidfuzz_levenshtein");
+        rapidfuzz_levenshtein_set.AddFunction(
+            ScalarFunction({LogicalType::VARCHAR, LogicalType::VARCHAR}, LogicalType::BIGINT, LevenshteinScalar));
+        rapidfuzz_levenshtein_set.AddFunction(ScalarFunction({LogicalType::VARCHAR, LogicalType::VARCHAR, LogicalType::BIGINT},
+                                                             LogicalType::BIGINT, LevenshteinScalarWithThreshold));
 
-	ExtensionUtil::RegisterFunction(instance, levenshtein_set);
+        ExtensionUtil::RegisterFunction(instance, rapidfuzz_levenshtein_set);
 
 	ScalarFunctionSet damerau_set("damerau_levenshtein");
 	damerau_set.AddFunction(
