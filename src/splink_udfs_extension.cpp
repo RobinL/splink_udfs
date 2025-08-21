@@ -204,12 +204,12 @@ static void LoadInternal(DatabaseInstance &instance) {
 
 	ExtensionUtil::RegisterFunction(instance, levenshtein_set);
 
-	ScalarFunctionSet damerau_set("damerau_levenshtein");
-	damerau_set.AddFunction(
-	    ScalarFunction({LogicalType::VARCHAR, LogicalType::VARCHAR}, LogicalType::BIGINT, DamerauLevenshteinScalar));
-	damerau_set.AddFunction(ScalarFunction({LogicalType::VARCHAR, LogicalType::VARCHAR, LogicalType::BIGINT},
-	                                       LogicalType::BIGINT, DamerauLevenshteinScalarWithThreshold));
-	ExtensionUtil::RegisterFunction(instance, damerau_set);
+        ScalarFunctionSet rapidfuzz_damerau_set("rapidfuzz_damerau_levenshtein");
+        rapidfuzz_damerau_set.AddFunction(
+            ScalarFunction({LogicalType::VARCHAR, LogicalType::VARCHAR}, LogicalType::BIGINT, DamerauLevenshteinScalar));
+        rapidfuzz_damerau_set.AddFunction(ScalarFunction({LogicalType::VARCHAR, LogicalType::VARCHAR, LogicalType::BIGINT},
+                                                         LogicalType::BIGINT, DamerauLevenshteinScalarWithThreshold));
+        ExtensionUtil::RegisterFunction(instance, rapidfuzz_damerau_set);
 
 	RegisterNgrams(instance);
 }
