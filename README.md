@@ -58,8 +58,8 @@ The function has two variants:
 - Two-argument version: Returns the exact Levenshtein distance
 - Three-argument version: Returns the distance capped at the specified threshold (useful for performance when you only care if strings are within a certain distance)
 
-### `damerau_levenshtein(VARCHAR, VARCHAR) → BIGINT`
-### `damerau_levenshtein(VARCHAR, VARCHAR, BIGINT) → BIGINT`
+### `rapidfuzz_damerau_levenshtein(VARCHAR, VARCHAR) → BIGINT`
+### `rapidfuzz_damerau_levenshtein(VARCHAR, VARCHAR, BIGINT) → BIGINT`
 
 Computes the Damerau-Levenshtein distance between two strings. This extends the Levenshtein distance by also allowing transposition of two adjacent characters as a single edit operation, making it more suitable for detecting common typing errors.
 
@@ -112,12 +112,12 @@ SELECT levenshtein('kitten', 'sitting', 2); -- returns 3 (exceeds threshold)
 SELECT levenshtein('hello', 'helo', 2); -- returns 1 (within threshold)
 
 -- Damerau-Levenshtein distance examples
-SELECT damerau_levenshtein('CA', 'AC'); -- returns 1 (transposition)
-SELECT damerau_levenshtein('kitten', 'sitting'); -- returns 3
-SELECT damerau_levenshtein('hello', 'ehllo'); -- returns 1 (transposition)
+SELECT rapidfuzz_damerau_levenshtein('CA', 'AC'); -- returns 1 (transposition)
+SELECT rapidfuzz_damerau_levenshtein('kitten', 'sitting'); -- returns 3
+SELECT rapidfuzz_damerau_levenshtein('hello', 'ehllo'); -- returns 1 (transposition)
 
 -- Damerau-Levenshtein with max threshold
-SELECT damerau_levenshtein('CA', 'AC', 2); -- returns 1
+SELECT rapidfuzz_damerau_levenshtein('CA', 'AC', 2); -- returns 1
 
 -- ngrams
 SELECT ngrams([1, 2, 3, 4], 2); -- returns [[1, 2], [2, 3], [3, 4]]
